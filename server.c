@@ -7,6 +7,12 @@
 
 #define PORT 8080
 
+void parse_request() {
+  //json parser in c
+  //sistema de thread pool para multiplos requests
+}
+
+
 int main() {
     int sockfd;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -34,6 +40,7 @@ int main() {
         perror("listen failed.");
     }
     while (1) {
+        printf("waiting for new connections\n");
         int new_connection;
         if ((new_connection = accept(sockfd, (struct sockaddr *)&addr, (socklen_t *)&addrlen)) < 0) {
             perror("failed to accept connection. :((");
