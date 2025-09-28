@@ -27,8 +27,8 @@ int main() {
   }
   while(1) {
     char buffer[1024];
-    size_t size = 3;
-    char * message = "ok\n";
+    size_t size = 15;
+    char * message = "boa noite bruno";
     send(sockfd, message, size, 0);
     int n = recv(sockfd, buffer, sizeof(buffer), 0);
     if (n == 0) {

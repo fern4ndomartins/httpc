@@ -4,14 +4,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <pthread.h>
 
 #define PORT 8080
 
 void parse_request() {
-  //json parser in c
-  //sistema de thread pool para multiplos requests
 }
 
+void * handle_connection() {
+
+}
 
 int main() {
     int sockfd;
@@ -19,7 +21,7 @@ int main() {
     if (!sockfd) {
         perror("failed to create socket!");   
     }
-
+  //    fcntl(sockfd, F_SETFL, O_NONBLOCK);
     struct sockaddr_in addr;
     int opt = 1;
     int addrlen = sizeof(addr);
@@ -41,13 +43,15 @@ int main() {
     }
     while (1) {
         printf("waiting for new connections\n");
+        pthread new_connection_thread;
         int new_connection;
         if ((new_connection = accept(sockfd, (struct sockaddr *)&addr, (socklen_t *)&addrlen)) < 0) {
             perror("failed to accept connection. :((");
         }
 
         char buf[1024] = {0};
-        read(new_connection, buf, 1024);
+        int n = recv(new_connection, buf, 1024, 0);
+        buf[n] = '\0';
         printf("request: \n%s\n", buf);
 
         char *response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nHello, World!";
