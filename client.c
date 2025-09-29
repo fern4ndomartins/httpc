@@ -31,11 +31,8 @@ int main() {
     char * message = "boa noite bruno";
     send(sockfd, message, size, 0);
     int n = recv(sockfd, buffer, sizeof(buffer), 0);
-    if (n == 0) {
-      printf("connection closed\n");
-      break;
-    }
     buffer[n] = '\0';
     printf("%s", buffer);
+    sleep(3);
   }
 }
